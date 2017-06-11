@@ -96,7 +96,7 @@ public class Labirinto {
             Posicao ex = la.get(0);
             while (!la.isEmpty() && contem(lf, ex)) {
                 la.remove(0);
-                ex = la.get(0); //pega o proximo E0
+                ex = la.get(0);
             }
             la.remove(0);
             ex.setStatus("[|]");
@@ -142,66 +142,68 @@ public class Labirinto {
         return false; //Solução não encontrada
     }
 
-
-
-
-
-
     public void buscarPorLarguraRecursividade () {
-            la.add(robo.getPosicaoAtual());
-            start(la.get(0));
+        start(robo.getPosicaoAtual());
     }
 
-public boolean start (Posicao ex) {
-    if (ex == null) {
-        return false; //Solução não encontrada
-    } else {
-        while (!la.isEmpty() && contem(lf, ex)) {
-            la.remove(0);
-            ex = la.get(0); //pega o proximo E0
+    public boolean start (Posicao ex) {
+        if (ex == null) {
+            return false; //Solução não encontrada
+        } else if (verificaChegada()) {
+            return true;
+        } else {
+            la.add(0, ex);
+            while (!la.isEmpty() && contem(lf, ex)) {
+                la.remove(0);
+                ex = la.get(0);
+            }
+            if (!la.isEmpty()) {
+                la.remove(0);
+            }
+            ex.setStatus("[|]");
+            lf.add(ex);
+    //        robo.anda(ex);
+            int i = ex.getI();
+            int j = ex.getJ();
+            if ( i < 9 && !(labirinto[i+1][j].isObstaculo() //BAIXO
+                    || contem(lf, labirinto[i+1][j]))) {
+                labirinto[i+1][j].setStatus("[o]");
+                mostraLabirinto(la, lf);
+                return start(labirinto[i+1][j]);
+            }
+            if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
+                    || contem(lf, labirinto[i][j+1]))) {
+                labirinto[i][j+1].setStatus("[o]");
+                mostraLabirinto(la, lf);
+                return start(labirinto[i][j+1]);
+            }
+            if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
+                    || contem(lf, labirinto[i-1][j]))) {
+                labirinto[i-1][j].setStatus("[o]");
+                mostraLabirinto(la, lf);
+                return start(labirinto[i-1][j]);
+            }
+            if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
+                    || contem(lf, labirinto[i][j-1]))) {
+                labirinto[i][j-1].setStatus("[o]");
+                mostraLabirinto(la, lf);
+                return start(labirinto[i][j-1]);
+            }
         }
-        la.remove(0);
-        ex.setStatus("[|]");
-        lf.add(ex);
-//        robo.anda(ex);
+        return false;
+    }
 
-        int i = ex.getI();
-        int j = ex.getJ();
-        ArrayList<Posicao> posicoesNovas = new ArrayList<>();
-        if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
-                || contem(lf, labirinto[i+1][j]))) { //BAIXO
-            posicoesNovas.add(labirinto[i+1][j]);
-        }
-        if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
-                || contem(lf, labirinto[i][j+1]))) {
-            posicoesNovas.add(labirinto[i][j+1]);
-        }
-        if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
-                || contem(lf, labirinto[i-1][j]))) {
-            posicoesNovas.add(labirinto[i-1][j]);
-        }
-        if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
-                || contem(lf, labirinto[i][j-1]))) {
-            posicoesNovas.add(labirinto[i][j-1]);
-        }
-        for (Posicao p : posicoesNovas) {
-            if ( p.equals(labirinto[9][9]) ) {
+    private boolean verificaChegada () {
+        for (Posicao p : lf) {
+            if ( p.getI() == 9 && p.getJ() == 9 ) {
                 System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
+                System.out.println("SOLUÇAO ENCONTRADA <3");
                 return true; //Solução encontrada
             }
         }
-        posicoesNovas.get(0).setStatus("[o]");
-        la.addAll(posicoesNovas);
-        mostraLabirinto(la, lf);
+        return false;
     }
-    return false; //Solução não encontrada
-}
 
-
-
-
-    
-    
     private void mostraLabirinto(ArrayList<Posicao> la, ArrayList<Posicao> lf) {
         String laResultado = "la: ";
         for ( Posicao p : la ) {
@@ -221,9 +223,5 @@ public boolean start (Posicao ex) {
             }
             System.out.println("");
         }
-        
-        
-        
     }
-    
 }
