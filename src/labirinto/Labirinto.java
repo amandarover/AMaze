@@ -167,6 +167,8 @@ public class Labirinto {
                 mostraLabirinto();
                 return start(labirinto[i][j-1]);
             }
+            mostraLabirinto();
+            return verificaChegada();
         }
     }
 
