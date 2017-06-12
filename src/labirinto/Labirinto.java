@@ -25,15 +25,6 @@ public class Labirinto {
             }
         }
     }
-    
-    private boolean contem (ArrayList<Posicao> lf, Posicao ex) {
-        for ( Posicao p : lf) {
-            if (p.equals(ex)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void criaObstaculos() {
         int numObstaculos = ((int)(Math.random() * 15)) + 10;
@@ -94,7 +85,7 @@ public class Labirinto {
         
         while (!la.isEmpty()) {
             Posicao ex = la.get(0);
-            while (!la.isEmpty() && contem(lf, ex)) {
+            while (!la.isEmpty() && lf.contains(ex)) {
                 la.remove(0);
                 ex = la.get(0);
             }
@@ -107,19 +98,19 @@ public class Labirinto {
             int j = ex.getJ();
             ArrayList<Posicao> posicoesNovas = new ArrayList<>();
             if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
-                    || contem(lf, labirinto[i+1][j]))) { //BAIXO
+                    || lf.contains(labirinto[i+1][j]))) { //BAIXO
                 posicoesNovas.add(labirinto[i+1][j]);
             }
             if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
-                    || contem(lf, labirinto[i][j+1]))) {
+                    || lf.contains(labirinto[i][j+1]))) {
                 posicoesNovas.add(labirinto[i][j+1]);
             }
             if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
-                    || contem(lf, labirinto[i-1][j]))) {
+                    || lf.contains(labirinto[i-1][j]))) {
                 posicoesNovas.add(labirinto[i-1][j]);
             }
             if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
-                    || contem(lf, labirinto[i][j-1]))) {
+                    || lf.contains(labirinto[i][j-1]))) {
                 posicoesNovas.add(labirinto[i][j-1]);
             }
             for (Posicao p : posicoesNovas) {
