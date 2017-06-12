@@ -148,27 +148,23 @@ public class Labirinto {
             int i = ex.getI();
             int j = ex.getJ();
             if ( i < 9 && !(labirinto[i+1][j].isObstaculo() //BAIXO
-                    || contem(lf, labirinto[i+1][j]))) {
-                labirinto[i+1][j].setStatus("[o]");
-                mostraLabirinto(la, lf);
+                    || lf.contains(labirinto[i+1][j]))) {
+                mostraLabirinto();
                 return start(labirinto[i+1][j]);
             }
             if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
-                    || contem(lf, labirinto[i][j+1]))) {
-                labirinto[i][j+1].setStatus("[o]");
-                mostraLabirinto(la, lf);
+                    || lf.contains(labirinto[i][j+1]))) {
+                mostraLabirinto();
                 return start(labirinto[i][j+1]);
             }
             if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
-                    || contem(lf, labirinto[i-1][j]))) {
-                labirinto[i-1][j].setStatus("[o]");
-                mostraLabirinto(la, lf);
+                    || lf.contains(labirinto[i-1][j]))) {
+                mostraLabirinto();
                 return start(labirinto[i-1][j]);
             }
             if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
-                    || contem(lf, labirinto[i][j-1]))) {
-                labirinto[i][j-1].setStatus("[o]");
-                mostraLabirinto(la, lf);
+                    || lf.contains(labirinto[i][j-1]))) {
+                mostraLabirinto();
                 return start(labirinto[i][j-1]);
             }
         }
