@@ -12,16 +12,26 @@ public class Robo {
         return posicaoAtual;
     }
     
-    public void anda(Posicao proximaPosicao) {
-        this.posicaoAtual = proximaPosicao;
-        energia--;
+    public void anda(Posicao ex) {
+        this.posicaoAtual = ex;
+        this.energia--;
+        if (ex.getEnergia() > 0) {
+            absorveEnergia(ex);
+        }
+        if (this.energia == 0) {
+            morre();
+        }
     }
 
+    public void absorveEnergia(Posicao ex) {
+        this.energia += ex.getEnergia();
+    }
+    
+    public void morre () {
+        System.out.println("MORRI DE CANSAÇO!!");
+    }
+    
     public int getEnergia() {
         return energia;
-    }
-
-    public void ganhaEnergia(int energia) {
-        this.energia += energia;
     }
 }

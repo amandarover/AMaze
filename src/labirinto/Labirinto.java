@@ -92,8 +92,8 @@ public class Labirinto {
             la.remove(0);
             ex.setStatus("[o]");
             lf.add(ex);
+            robo.anda(ex);
             mostraLabirinto();
-//            robo.anda(ex);
             
             int i = ex.getI();
             int j = ex.getJ();
@@ -144,7 +144,7 @@ public class Labirinto {
         } else {
             ex.setStatus("[o]");
             lf.add(ex);
-    //        robo.anda(ex);
+            robo.anda(ex);
             int i = ex.getI();
             int j = ex.getJ();
             if ( i < 9 && !(labirinto[i+1][j].isObstaculo() //BAIXO
@@ -189,7 +189,8 @@ public class Labirinto {
             lfResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
         }
         System.out.println(lfResultado);
-
+        System.out.println("Energia: " + robo.getEnergia());
+        
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 System.out.print(labirinto[i][j].getStatus() + " ");
