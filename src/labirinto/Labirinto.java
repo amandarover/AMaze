@@ -142,15 +142,7 @@ public class Labirinto {
         } else if (verificaChegada()) {
             return true;
         } else {
-            la.add(0, ex);
-            while (!la.isEmpty() && contem(lf, ex)) {
-                la.remove(0);
-                ex = la.get(0);
-            }
-            if (!la.isEmpty()) {
-                la.remove(0);
-            }
-            ex.setStatus("[|]");
+            ex.setStatus("[o]");
             lf.add(ex);
     //        robo.anda(ex);
             int i = ex.getI();
@@ -180,7 +172,6 @@ public class Labirinto {
                 return start(labirinto[i][j-1]);
             }
         }
-        return false;
     }
 
     private boolean verificaChegada () {
@@ -193,20 +184,14 @@ public class Labirinto {
         }
         return false;
     }
-
-    private void mostraLabirinto(ArrayList<Posicao> la, ArrayList<Posicao> lf) {
-        String laResultado = "la: ";
-        for ( Posicao p : la ) {
-            laResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
-        }
+    
+    private void mostraLabirinto () {
         String lfResultado = "lf: ";
         for ( Posicao p : lf ) {
             lfResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
         }
-        System.out.println(laResultado);
         System.out.println(lfResultado);
 
-        
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 System.out.print(labirinto[i][j].getStatus() + " ");
