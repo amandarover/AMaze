@@ -90,7 +90,7 @@ public class Labirinto {
                 ex = la.get(0);
             }
             la.remove(0);
-            ex.setStatus("[|]");
+            ex.setStatus("[o]");
             lf.add(ex);
 //            robo.anda(ex);
             
@@ -118,28 +118,27 @@ public class Labirinto {
                     System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
                     System.out.println("SOLUÇAO ENCONTRADA <3");
                     posicoesNovas.get(0).setStatus("[o]");
-                    return true; //Solução encontrada
+                    return true;
                 }
             }
-            if (posicoesNovas.isEmpty()) { //entrou num buraco e morreu
+            if (posicoesNovas.isEmpty()) {
                 System.out.println("MORREU!");
                 return false;
             }
             posicoesNovas.get(0).setStatus("[o]");
-            la.addAll(0, posicoesNovas);
-            mostraLabirinto(la, lf);
+            la.addAll(0, posicoesNovas); //BUSCA POR PROFUNDIDADE (insere no inicio)
+            mostraLabirinto();
         }
-        System.out.println("SEM SOLUÇAO");
-        return false; //Solução não encontrada
+        return false;
     }
-
+    
     public void buscarPorLarguraRecursividade () {
         start(robo.getPosicaoAtual());
     }
 
     public boolean start (Posicao ex) {
         if (ex == null) {
-            return false; //Solução não encontrada
+            return false;
         } else if (verificaChegada()) {
             return true;
         } else {
@@ -189,7 +188,7 @@ public class Labirinto {
             if ( p.getI() == 9 && p.getJ() == 9 ) {
                 System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
                 System.out.println("SOLUÇAO ENCONTRADA <3");
-                return true; //Solução encontrada
+                return true;
             }
         }
         return false;
@@ -210,7 +209,7 @@ public class Labirinto {
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                System.out.print(labirinto[i][j].getStatus()+" ");
+                System.out.print(labirinto[i][j].getStatus() + " ");
             }
             System.out.println("");
         }
