@@ -184,7 +184,7 @@ public class Labirinto {
     }
     
     private void mostraLabirinto () {
-        String lfResultado = "lf: ";
+        String lfResultado = "\n\n\nlf: ";
         for ( Posicao p : lf ) {
             lfResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
         }
