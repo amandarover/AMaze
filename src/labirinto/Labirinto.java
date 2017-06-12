@@ -8,7 +8,6 @@ public class Labirinto {
     private Robo robo;
     private ArrayList<Posicao> la = new ArrayList<>();
     private ArrayList<Posicao> lf = new ArrayList<>();
-    private int passos = 0;
     
     public Labirinto () {
         preparaLabirinto();
@@ -143,9 +142,8 @@ public class Labirinto {
         } else if (verificaChegada()) {
             return true;
         } else {
-            ex.setStatus("[" + passos + "]");
+            ex.setStatus("[o]");
             lf.add(ex);
-            passos++;
     //        robo.anda(ex);
             int i = ex.getI();
             int j = ex.getJ();
