@@ -13,9 +13,7 @@ public class Posicao {
         this.energia = energia;
         this.i = i;
         this.j = j;
-        if (obstaculo){
-            this.status = "[X]";
-        } else if (energia>0){
+        if (energia>0){
             this.status = "["+energia+"]";
         } else {
             this.status = "[ ]";

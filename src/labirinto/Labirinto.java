@@ -93,6 +93,7 @@ public class Labirinto {
             la.remove(0);
             ex.setStatus("[o]");
             lf.add(ex);
+            mostraLabirinto();
 //            robo.anda(ex);
             
             int i = ex.getI();
@@ -119,6 +120,7 @@ public class Labirinto {
                     System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
                     System.out.println("SOLUÇAO ENCONTRADA <3");
                     posicoesNovas.get(0).setStatus("[o]");
+                    mostraLabirinto();
                     return true;
                 }
             }
@@ -126,9 +128,7 @@ public class Labirinto {
                 System.out.println("MORREU!");
                 return false;
             }
-            posicoesNovas.get(0).setStatus("[o]");
             la.addAll(0, posicoesNovas); //BUSCA POR PROFUNDIDADE (insere no inicio)
-            mostraLabirinto();
         }
         return false;
     }
