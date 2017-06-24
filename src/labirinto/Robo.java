@@ -12,15 +12,11 @@ public class Robo {
         return posicaoAtual;
     }
     
-    public void anda(Posicao ex) {
-        this.posicaoAtual = ex;
+    public boolean anda(Posicao ex) {
         this.energia--;
-        if (ex.getEnergia() > 0) {
-            absorveEnergia(ex);
-        }
-        if (this.energia == 0) {
-            morre();
-        }
+        absorveEnergia(ex);
+        this.posicaoAtual = ex;
+        return true;
     }
 
     public void absorveEnergia(Posicao ex) {

@@ -99,6 +99,64 @@ public class Labirinto {
         ArrayList<Posicao> lf = new ArrayList<>();
         la.add(robo.getPosicaoAtual());
         
+        while (!la.isEmpty() && robo.getEnergia() > 0) {
+            Posicao ex = la.get(0);
+            while (!la.isEmpty() && lf.contains(ex)) {
+                la.remove(0);
+                ex = la.get(0);
+            }
+            
+            la.remove(0);
+            ex.setStatus("[o]");
+            lf.add(ex);
+            
+            if (robo.anda(ex)) {
+                mostraLabirinto();
+            
+                int i = ex.getI();
+                int j = ex.getJ();
+                ArrayList<Posicao> posicoesNovas = new ArrayList<>();
+                if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
+                        || lf.contains(labirinto[i+1][j]))) { //BAIXO
+                    posicoesNovas.add(labirinto[i+1][j]);
+                }
+                if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
+                        || lf.contains(labirinto[i][j+1]))) {
+                    posicoesNovas.add(labirinto[i][j+1]);
+                }
+                if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
+                        || lf.contains(labirinto[i-1][j]))) {
+                    posicoesNovas.add(labirinto[i-1][j]);
+                }
+                if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
+                        || lf.contains(labirinto[i][j-1]))) {
+                    posicoesNovas.add(labirinto[i][j-1]);
+                }
+                for (Posicao p : posicoesNovas) {
+                    if ( p.equals(labirinto[9][9]) ) {
+                        System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
+                        System.out.println("SOLUÇAO ENCONTRADA <3");
+                        posicoesNovas.get(0).setStatus("[o]");
+                        mostraLabirinto();
+                        return true;
+                    }
+                }
+                if (posicoesNovas.isEmpty()) {
+                    System.out.println("NÃO TEM MAIS SAÍDA!");
+                    return false;
+                }
+                la.addAll(posicoesNovas);
+            }
+        }
+        robo.morre();
+        return false;
+    }
+
+    boolean algoritmoEstrela() {
+        ArrayList<Posicao> la = new ArrayList<>();
+        ArrayList<Posicao> lf = new ArrayList<>();
+        la.add(robo.getPosicaoAtual());
+        
         while (!la.isEmpty()) {
             Posicao ex = la.get(0);
             while (!la.isEmpty() && lf.contains(ex)) {
