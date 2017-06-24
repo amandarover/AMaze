@@ -19,8 +19,8 @@ public class Labirinto {
     private void preparaLabirinto() {
         labirinto = new Posicao [10][10];
         
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto.length; j++) {
                 labirinto[i][j] = new Posicao(false, 0, i, j);
             }
         }
@@ -79,15 +79,10 @@ public class Labirinto {
     }
     
     private void mostraLabirinto () {
-        String lfResultado = "\n\n\nlf: ";
-        for ( Posicao p : lf ) {
-            lfResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
-        }
-        System.out.println(lfResultado);
-        System.out.println("Energia: " + robo.getEnergia());
+        System.out.println("\n\n\nEnergia: " + robo.getEnergia());
         
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto.length; j++) {
                 System.out.print(labirinto[i][j].getStatus() + " ");
             }
             System.out.println("");
@@ -198,7 +193,7 @@ public class Labirinto {
                 }
             }
             if (posicoesNovas.isEmpty()) {
-                System.out.println("MORREU!");
+                System.out.println("ENTROU NO BURACO!");
                 return false;
             }
             la.addAll(posicoesNovas);
