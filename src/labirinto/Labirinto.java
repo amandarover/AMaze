@@ -164,45 +164,64 @@ public class Labirinto {
             robo.anda(ex);
             mostraLabirinto();
             
+            int h;
             int i = ex.getI();
             int j = ex.getJ();
             ArrayList<Posicao> posicoesNovas = new ArrayList<>();
             if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
-                    || lf.contains(labirinto[i+1][j]))) { //BAIXO
+                    || lf.contains(labirinto[i+1][j]))) {
+                h = (10 - (i+1)) + (10 - j);
+                labirinto[i+1][j].setH(h);
                 posicoesNovas.add(labirinto[i+1][j]);
             }
-            if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
+            if ( j < 9 && !(labirinto[i][j+1].isObstaculo()
                     || lf.contains(labirinto[i][j+1]))) {
+                h = (10 - i) + (10 - (j+1));
+                labirinto[i][j+1].setH(h);
                 posicoesNovas.add(labirinto[i][j+1]);
             }
-            if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
+            if ( i > 0 && !(labirinto[i-1][j].isObstaculo()
                     || lf.contains(labirinto[i-1][j]))) {
+                h = (10 - (i-1)) + (10 - j);
+                labirinto[i-1][j].setH(h);
                 posicoesNovas.add(labirinto[i-1][j]);
             }
-            if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
+            if ( j > 0 && !(labirinto[i][j-1].isObstaculo()
                     || lf.contains(labirinto[i][j-1]))) {
+                h = (10 - i) + (10 - (j-1));
+                labirinto[i][j-1].setH(h);
                 posicoesNovas.add(labirinto[i][j-1]);
-            }
-            for (Posicao p : posicoesNovas) {
-                if ( p.equals(labirinto[9][9]) ) {
-                    System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
-                    System.out.println("SOLUÇAO ENCONTRADA <3");
-                    posicoesNovas.get(0).setStatus("[o]");
-                    mostraLabirinto();
-                    return true;
-                }
             }
             if (posicoesNovas.isEmpty()) {
                 System.out.println("ENTROU NO BURACO!");
                 return false;
+            } else {
+                for (Posicao p : posicoesNovas) {
+                    if ( p.equals(labirinto[9][9]) ) {
+                        System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
+                        System.out.println("SOLUÇAO ENCONTRADA <3");
+                        posicoesNovas.get(0).setStatus("[o]");
+                        mostraLabirinto();
+                        return true;
+                    }
+                }
+                Posicao proximaPosicao = posicaoMenorH(posicoesNovas);
+                la.add(proximaPosicao);
             }
-            la.addAll(posicoesNovas);
         }
         return false;
     }
-
-    void algoritmoEstrela() {
-        
+    
+    public Posicao posicaoMenorH (ArrayList<Posicao> posicoesNovas) {
+        int hMenor = 1000;
+        Posicao proxPosicao = null;
+        for (int i = 0; i < posicoesNovas.size(); i++) {
+            if (posicoesNovas.get(i).getH() < hMenor) {
+                hMenor = posicoesNovas.get(i).getH();
+                proxPosicao = posicoesNovas.get(i);
+            }
+        }
+        return proxPosicao;
     }
     
     public void buscarPorLarguraRecursividade () {

@@ -7,6 +7,7 @@ public class Posicao {
     private int i;
     private int j;
     private String status;
+    private int h;
 
     public Posicao(boolean obstaculo,int energia, int i, int j) {
         this.obstaculo = obstaculo;
@@ -60,4 +61,11 @@ public class Posicao {
         this.status = status;
     }
     
+    public int getH() {
+        return h;
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
 }
