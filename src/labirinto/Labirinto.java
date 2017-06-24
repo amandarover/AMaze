@@ -78,6 +78,22 @@ public class Labirinto {
         }
     }
     
+    private void mostraLabirinto () {
+        String lfResultado = "\n\n\nlf: ";
+        for ( Posicao p : lf ) {
+            lfResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
+        }
+        System.out.println(lfResultado);
+        System.out.println("Energia: " + robo.getEnergia());
+        
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(labirinto[i][j].getStatus() + " ");
+            }
+            System.out.println("");
+        }
+    }
+    
     public boolean buscarPorLargura () {
         ArrayList<Posicao> la = new ArrayList<>();
         ArrayList<Posicao> lf = new ArrayList<>();
@@ -131,6 +147,10 @@ public class Labirinto {
         }
         return false;
     }
+
+    void algoritmoEstrela() {
+        
+    }
     
     public void buscarPorLarguraRecursividade () {
         start(robo.getPosicaoAtual());
@@ -181,21 +201,5 @@ public class Labirinto {
             }
         }
         return false;
-    }
-    
-    private void mostraLabirinto () {
-        String lfResultado = "\n\n\nlf: ";
-        for ( Posicao p : lf ) {
-            lfResultado += "[" + p.getI() + ", " + p.getJ() + "]; ";
-        }
-        System.out.println(lfResultado);
-        System.out.println("Energia: " + robo.getEnergia());
-        
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(labirinto[i][j].getStatus() + " ");
-            }
-            System.out.println("");
-        }
     }
 }
