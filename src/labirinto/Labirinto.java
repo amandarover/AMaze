@@ -127,7 +127,7 @@ public class Labirinto {
                 System.out.println("MORREU!");
                 return false;
             }
-            la.addAll(0, posicoesNovas); //BUSCA POR PROFUNDIDADE (insere no inicio)
+            la.addAll(posicoesNovas);
         }
         return false;
     }
