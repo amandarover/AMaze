@@ -152,61 +152,63 @@ public class Labirinto {
         ArrayList<Posicao> lf = new ArrayList<>();
         la.add(robo.getPosicaoAtual());
         
-        while (!la.isEmpty()) {
+        while (!la.isEmpty() && robo.getEnergia() > 0) {
             Posicao ex = la.get(0);
             while (!la.isEmpty() && lf.contains(ex)) {
                 la.remove(0);
                 ex = la.get(0);
             }
             la.remove(0);
-            ex.setStatus("[o]");
             lf.add(ex);
-            robo.anda(ex);
-            mostraLabirinto();
-            
-            int h;
-            int i = ex.getI();
-            int j = ex.getJ();
-            ArrayList<Posicao> posicoesNovas = new ArrayList<>();
-            if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
-                    || lf.contains(labirinto[i+1][j]))) {
-                h = (10 - (i+1)) + (10 - j);
-                labirinto[i+1][j].setH(h);
-                posicoesNovas.add(labirinto[i+1][j]);
-            }
-            if ( j < 9 && !(labirinto[i][j+1].isObstaculo()
-                    || lf.contains(labirinto[i][j+1]))) {
-                h = (10 - i) + (10 - (j+1));
-                labirinto[i][j+1].setH(h);
-                posicoesNovas.add(labirinto[i][j+1]);
-            }
-            if ( i > 0 && !(labirinto[i-1][j].isObstaculo()
-                    || lf.contains(labirinto[i-1][j]))) {
-                h = (10 - (i-1)) + (10 - j);
-                labirinto[i-1][j].setH(h);
-                posicoesNovas.add(labirinto[i-1][j]);
-            }
-            if ( j > 0 && !(labirinto[i][j-1].isObstaculo()
-                    || lf.contains(labirinto[i][j-1]))) {
-                h = (10 - i) + (10 - (j-1));
-                labirinto[i][j-1].setH(h);
-                posicoesNovas.add(labirinto[i][j-1]);
-            }
-            if (posicoesNovas.isEmpty()) {
-                System.out.println("ENTROU NO BURACO!");
-                return false;
-            } else {
-                for (Posicao p : posicoesNovas) {
-                    if ( p.equals(labirinto[9][9]) ) {
-                        System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
-                        System.out.println("SOLUÇAO ENCONTRADA <3");
-                        posicoesNovas.get(0).setStatus("[o]");
-                        mostraLabirinto();
-                        return true;
-                    }
+            if (robo.anda(ex)) {
+                ex.setStatus("[o]");
+                mostraLabirinto();
+
+                int h;
+                int i = ex.getI();
+                int j = ex.getJ();
+                ArrayList<Posicao> posicoesNovas = new ArrayList<>();
+                if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
+                        || lf.contains(labirinto[i+1][j]))) {
+                    h = (10 - (i+1)) + (10 - j);
+                    labirinto[i+1][j].setH(h);
+                    posicoesNovas.add(labirinto[i+1][j]);
                 }
-                Posicao proximaPosicao = posicaoMenorH(posicoesNovas);
-                la.add(proximaPosicao);
+                if ( j < 9 && !(labirinto[i][j+1].isObstaculo()
+                        || lf.contains(labirinto[i][j+1]))) {
+                    h = (10 - i) + (10 - (j+1));
+                    labirinto[i][j+1].setH(h);
+                    posicoesNovas.add(labirinto[i][j+1]);
+                }
+                if ( i > 0 && !(labirinto[i-1][j].isObstaculo()
+                        || lf.contains(labirinto[i-1][j]))) {
+                    h = (10 - (i-1)) + (10 - j);
+                    labirinto[i-1][j].setH(h);
+                    posicoesNovas.add(labirinto[i-1][j]);
+                }
+                if ( j > 0 && !(labirinto[i][j-1].isObstaculo()
+                        || lf.contains(labirinto[i][j-1]))) {
+                    h = (10 - i) + (10 - (j-1));
+                    labirinto[i][j-1].setH(h);
+                    posicoesNovas.add(labirinto[i][j-1]);
+                }
+                if (posicoesNovas.isEmpty()) {
+                    System.out.println("ENTROU NO BURACO!");
+                    return false;
+                } else {
+                    for (Posicao p : posicoesNovas) {
+                        if (p.equals(labirinto[9][9])) {
+                            robo.anda(p);
+                            posicoesNovas.get(0).setStatus("[o]");
+                            mostraLabirinto();
+                            System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
+                            System.out.println("SOLUÇAO ENCONTRADA <3");
+                            return true;
+                        }
+                    }
+                    Posicao proximaPosicao = posicaoMenorH(posicoesNovas);
+                    la.add(proximaPosicao);
+                }
             }
         }
         return false;
