@@ -101,27 +101,8 @@ public class Labirinto {
             la.remove(0);
             lf.add(ex);
             if (robo.anda(ex)) {
-            
-                int i = ex.getI();
-                int j = ex.getJ();
-                ArrayList<Posicao> posicoesNovas = new ArrayList<>();
-                if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
-                        || lf.contains(labirinto[i+1][j]))) { //BAIXO
-                    posicoesNovas.add(labirinto[i+1][j]);
-                }
-                if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
-                        || lf.contains(labirinto[i][j+1]))) {
-                    posicoesNovas.add(labirinto[i][j+1]);
-                }
-                if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
-                        || lf.contains(labirinto[i-1][j]))) {
-                    posicoesNovas.add(labirinto[i-1][j]);
-                }
-                if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
-                        || lf.contains(labirinto[i][j-1]))) {
-                    posicoesNovas.add(labirinto[i][j-1]);
-                }
                 currentMazeSnapshot(ex);
+                ArrayList<Posicao> posicoesNovas = searchForNewPositionAmplitude(ex);
                 for (Posicao p : posicoesNovas) {
                     if ( p.equals(labirinto[9][9]) ) {
                         System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
@@ -140,6 +121,29 @@ public class Labirinto {
         }
         robo.morre();
         return false;
+    }
+    
+    private ArrayList <Posicao> searchForNewPositionAmplitude (Posicao ex) {
+        int i = ex.getI();
+        int j = ex.getJ();
+        ArrayList<Posicao> posicoesNovas = new ArrayList<>();
+        if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
+                || lf.contains(labirinto[i+1][j]))) { //BAIXO
+            posicoesNovas.add(labirinto[i+1][j]);
+        }
+        if ( j < 9 && !(labirinto[i][j+1].isObstaculo() //DIREITA
+                || lf.contains(labirinto[i][j+1]))) {
+            posicoesNovas.add(labirinto[i][j+1]);
+        }
+        if ( i > 0 && !(labirinto[i-1][j].isObstaculo() //CIMA
+                || lf.contains(labirinto[i-1][j]))) {
+            posicoesNovas.add(labirinto[i-1][j]);
+        }
+        if ( j > 0 && !(labirinto[i][j-1].isObstaculo() //ESQUERDA
+                || lf.contains(labirinto[i][j-1]))) {
+            posicoesNovas.add(labirinto[i][j-1]);
+        }
+        return posicoesNovas;
     }
 
     boolean algoritmoEstrela() {
