@@ -98,13 +98,9 @@ public class Labirinto {
                 la.remove(0);
                 ex = la.get(0);
             }
-            
             la.remove(0);
-            ex.setStatus("[o]");
             lf.add(ex);
-            
             if (robo.anda(ex)) {
-                mostraLabirinto();
             
                 int i = ex.getI();
                 int j = ex.getJ();
@@ -125,6 +121,7 @@ public class Labirinto {
                         || lf.contains(labirinto[i][j-1]))) {
                     posicoesNovas.add(labirinto[i][j-1]);
                 }
+                currentMazeSnapshot(ex);
                 for (Posicao p : posicoesNovas) {
                     if ( p.equals(labirinto[9][9]) ) {
                         System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
