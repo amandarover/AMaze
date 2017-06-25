@@ -90,8 +90,6 @@ public class Labirinto {
     }
     
     public boolean buscarPorLargura () {
-        ArrayList<Posicao> la = new ArrayList<>();
-        ArrayList<Posicao> lf = new ArrayList<>();
         la.add(robo.getPosicaoAtual());
         
         while (!la.isEmpty() && robo.getEnergia() > 0) {
@@ -148,8 +146,6 @@ public class Labirinto {
     }
 
     boolean algoritmoEstrela() {
-        ArrayList<Posicao> la = new ArrayList<>();
-        ArrayList<Posicao> lf = new ArrayList<>();
         la.add(robo.getPosicaoAtual());
         mostraLabirinto();
         
