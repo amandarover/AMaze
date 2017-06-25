@@ -243,7 +243,7 @@ public class Labirinto {
     
     // BUSCA POR RECURSIVIDADE
     
-    public void buscarPorLarguraRecursividade () {
+    public void amplitudeAlgorithmRecursivity () {
         start(robo.getPosicaoAtual());
     }
 
