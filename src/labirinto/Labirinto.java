@@ -160,10 +160,10 @@ public class Labirinto {
             }
             la.remove(0);
             lf.add(ex);
+            mostraLabirinto();
             if (robo.anda(ex)) {
                 ex.setStatus("[o]");
                 mostraLabirinto();
-
                 int h;
                 int i = ex.getI();
                 int j = ex.getJ();
