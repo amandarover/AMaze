@@ -94,33 +94,37 @@ public class Labirinto {
         
         while (!la.isEmpty() && robo.getEnergia() > 0) {
             Posicao ex = la.get(0);
-            while (!la.isEmpty() && lf.contains(ex)) {
-                la.remove(0);
-                ex = la.get(0);
-            }
-            la.remove(0);
-            lf.add(ex);
+            ex = removeAlreadyPassedPosition(ex);
+            goToNextPosition(ex);
             if (robo.anda(ex)) {
                 currentMazeSnapshot(ex);
                 ArrayList<Posicao> posicoesNovas = searchForNewPositionAmplitude(ex);
-                for (Posicao p : posicoesNovas) {
-                    if ( p.equals(labirinto[9][9]) ) {
-                        System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
-                        System.out.println("SOLUÇAO ENCONTRADA <3");
-                        posicoesNovas.get(0).setStatus("[o]");
-                        mostraLabirinto();
-                        return true;
-                    }
-                }
                 if (posicoesNovas.isEmpty()) {
-                    System.out.println("NÃO TEM MAIS SAÍDA!");
+                    robo.deadEnd();
                     return false;
                 }
-                la.addAll(posicoesNovas);
+                if (reachedTheEnd(posicoesNovas)) {
+                    return true;
+                } else {
+                    la.addAll(posicoesNovas);
+                }
             }
         }
-        robo.morre();
+        robo.deadWithouEnergy();
         return false;
+    }
+    
+    private Posicao removeAlreadyPassedPosition (Posicao ex) {
+        while (!la.isEmpty() && lf.contains(ex)) {
+            la.remove(0);
+            ex = la.get(0);
+        }
+        return ex;
+    }
+    
+    private void goToNextPosition (Posicao ex) {
+        la.remove(0);
+        lf.add(ex);
     }
     
     private ArrayList <Posicao> searchForNewPositionAmplitude (Posicao ex) {
@@ -162,24 +166,18 @@ public class Labirinto {
                 currentMazeSnapshot(ex);
                 ArrayList<Posicao> posicoesNovas = searchForNewPositionAStar(ex);
                 if (posicoesNovas.isEmpty()) {
-                    System.out.println("ENTROU NO BURACO!");
+                    robo.deadEnd();
                     return false;
+                }
+                if (reachedTheEnd(posicoesNovas)) {
+                    return true;
                 } else {
-                    for (Posicao p : posicoesNovas) {
-                        if (p.equals(labirinto[9][9])) {
-                            robo.anda(p);
-                            posicoesNovas.get(0).setStatus("[o]");
-                            mostraLabirinto();
-                            System.out.println("p: i= " + p.getI() + " j= " + p.getJ());
-                            System.out.println("SOLUÇAO ENCONTRADA <3");
-                            return true;
-                        }
-                    }
                     Posicao proximaPosicao = posicaoMenorH(posicoesNovas);
                     la.add(proximaPosicao);
                 }
             }
         }
+        robo.deadWithouEnergy();
         return false;
     }
     
@@ -188,16 +186,16 @@ public class Labirinto {
         mostraLabirinto();
     }
     
-    private Posicao posicaoMenorH (ArrayList<Posicao> posicoesNovas) {
-        int hMenor = 1000;
-        Posicao proxPosicao = null;
-        for (int i = 0; i < posicoesNovas.size(); i++) {
-            if (posicoesNovas.get(i).getH() < hMenor) {
-                hMenor = posicoesNovas.get(i).getH();
-                proxPosicao = posicoesNovas.get(i);
+    private boolean reachedTheEnd (ArrayList <Posicao> posicoesNovas) {
+        for (Posicao p : posicoesNovas) {
+            if ( p.equals(labirinto[9][9]) ) {
+                robo.anda(p);
+                currentMazeSnapshot(posicoesNovas.get(0));
+                System.out.println("SOLUÇAO ENCONTRADA <3");
+                return true;
             }
         }
-        return proxPosicao;
+        return false;
     }
     
     private ArrayList <Posicao> searchForNewPositionAStar (Posicao ex) {
@@ -231,6 +229,24 @@ public class Labirinto {
         }
         return posicoesNovas;
     }
+    
+    private Posicao posicaoMenorH (ArrayList<Posicao> posicoesNovas) {
+        int hMenor = 1000;
+        Posicao proxPosicao = null;
+        for (int i = 0; i < posicoesNovas.size(); i++) {
+            if (posicoesNovas.get(i).getH() < hMenor) {
+                hMenor = posicoesNovas.get(i).getH();
+                proxPosicao = posicoesNovas.get(i);
+            }
+        }
+        return proxPosicao;
+    }
+    
+    
+    
+    
+    
+    // BUSCA POR RECURSIVIDADE
     
     public void buscarPorLarguraRecursividade () {
         start(robo.getPosicaoAtual());

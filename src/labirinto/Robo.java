@@ -23,8 +23,12 @@ public class Robo {
         this.energia += ex.getEnergia();
     }
     
-    public void morre () {
+    public void deadWithouEnergy () {
         System.out.println("MORRI DE CANSAÇO!!");
+    }
+    
+    public void deadEnd () {
+        System.out.println("SEM SAÍDA!!");
     }
     
     public int getEnergia() {
