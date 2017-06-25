@@ -151,6 +151,7 @@ public class Labirinto {
         ArrayList<Posicao> la = new ArrayList<>();
         ArrayList<Posicao> lf = new ArrayList<>();
         la.add(robo.getPosicaoAtual());
+        mostraLabirinto();
         
         while (!la.isEmpty() && robo.getEnergia() > 0) {
             Posicao ex = la.get(0);
@@ -160,7 +161,6 @@ public class Labirinto {
             }
             la.remove(0);
             lf.add(ex);
-            mostraLabirinto();
             if (robo.anda(ex)) {
                 ex.setStatus("[o]");
                 mostraLabirinto();
@@ -214,7 +214,7 @@ public class Labirinto {
         return false;
     }
     
-    public Posicao posicaoMenorH (ArrayList<Posicao> posicoesNovas) {
+    private Posicao posicaoMenorH (ArrayList<Posicao> posicoesNovas) {
         int hMenor = 1000;
         Posicao proxPosicao = null;
         for (int i = 0; i < posicoesNovas.size(); i++) {
