@@ -158,8 +158,7 @@ public class Labirinto {
             la.remove(0);
             lf.add(ex);
             if (robo.anda(ex)) {
-                ex.setStatus("[o]");
-                mostraLabirinto();
+                currentMazeSnapshot(ex);
                 int h;
                 int i = ex.getI();
                 int j = ex.getJ();
@@ -208,6 +207,11 @@ public class Labirinto {
             }
         }
         return false;
+    }
+    
+    private void currentMazeSnapshot(Posicao ex) {
+        ex.setStatus("[o]");
+        mostraLabirinto();
     }
     
     private Posicao posicaoMenorH (ArrayList<Posicao> posicoesNovas) {
