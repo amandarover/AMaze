@@ -160,34 +160,7 @@ public class Labirinto {
             lf.add(ex);
             if (robo.anda(ex)) {
                 currentMazeSnapshot(ex);
-                int h;
-                int i = ex.getI();
-                int j = ex.getJ();
-                ArrayList<Posicao> posicoesNovas = new ArrayList<>();
-                if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
-                        || lf.contains(labirinto[i+1][j]))) {
-                    h = (10 - (i+1)) + (10 - j);
-                    labirinto[i+1][j].setH(h);
-                    posicoesNovas.add(labirinto[i+1][j]);
-                }
-                if ( j < 9 && !(labirinto[i][j+1].isObstaculo()
-                        || lf.contains(labirinto[i][j+1]))) {
-                    h = (10 - i) + (10 - (j+1));
-                    labirinto[i][j+1].setH(h);
-                    posicoesNovas.add(labirinto[i][j+1]);
-                }
-                if ( i > 0 && !(labirinto[i-1][j].isObstaculo()
-                        || lf.contains(labirinto[i-1][j]))) {
-                    h = (10 - (i-1)) + (10 - j);
-                    labirinto[i-1][j].setH(h);
-                    posicoesNovas.add(labirinto[i-1][j]);
-                }
-                if ( j > 0 && !(labirinto[i][j-1].isObstaculo()
-                        || lf.contains(labirinto[i][j-1]))) {
-                    h = (10 - i) + (10 - (j-1));
-                    labirinto[i][j-1].setH(h);
-                    posicoesNovas.add(labirinto[i][j-1]);
-                }
+                ArrayList<Posicao> posicoesNovas = searchForNewPositionAStar(ex);
                 if (posicoesNovas.isEmpty()) {
                     System.out.println("ENTROU NO BURACO!");
                     return false;
@@ -225,6 +198,38 @@ public class Labirinto {
             }
         }
         return proxPosicao;
+    }
+    
+    private ArrayList <Posicao> searchForNewPositionAStar (Posicao ex) {
+        int h;
+        int i = ex.getI();
+        int j = ex.getJ();
+        ArrayList<Posicao> posicoesNovas = new ArrayList<>();
+        if ( i < 9 && !(labirinto[i+1][j].isObstaculo()
+                || lf.contains(labirinto[i+1][j]))) {
+            h = (10 - (i+1)) + (10 - j);
+            labirinto[i+1][j].setH(h);
+            posicoesNovas.add(labirinto[i+1][j]);
+        }
+        if ( j < 9 && !(labirinto[i][j+1].isObstaculo()
+                || lf.contains(labirinto[i][j+1]))) {
+            h = (10 - i) + (10 - (j+1));
+            labirinto[i][j+1].setH(h);
+            posicoesNovas.add(labirinto[i][j+1]);
+        }
+        if ( i > 0 && !(labirinto[i-1][j].isObstaculo()
+                || lf.contains(labirinto[i-1][j]))) {
+            h = (10 - (i-1)) + (10 - j);
+            labirinto[i-1][j].setH(h);
+            posicoesNovas.add(labirinto[i-1][j]);
+        }
+        if ( j > 0 && !(labirinto[i][j-1].isObstaculo()
+                || lf.contains(labirinto[i][j-1]))) {
+            h = (10 - i) + (10 - (j-1));
+            labirinto[i][j-1].setH(h);
+            posicoesNovas.add(labirinto[i][j-1]);
+        }
+        return posicoesNovas;
     }
     
     public void buscarPorLarguraRecursividade () {
