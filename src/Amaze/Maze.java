@@ -1,6 +1,9 @@
 package Amaze;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Maze {
 
@@ -79,13 +82,18 @@ public class Maze {
     }
     
     private void printMaze () {
-        System.out.println("\n\n\nEnergia: " + robot.getEnergy());
-        
-        for (int i = 0; i < maze.length; i++) {
-            for (int j = 0; j < maze.length; j++) {
-                System.out.print(maze[i][j].getStatus() + " ");
+        try {
+            System.out.println("\n\n\nEnergia: " + robot.getEnergy());
+            
+            for (int i = 0; i < maze.length; i++) {
+                for (int j = 0; j < maze.length; j++) {
+                    System.out.print(maze[i][j].getStatus() + " ");
+                }
+                System.out.println("");
             }
-            System.out.println("");
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Maze.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
