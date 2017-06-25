@@ -14,13 +14,13 @@ public class Robot {
     
     public boolean walk(Position ex) {
         this.energy --;
-        absorbsEnergya(ex);
+        absorbsEnergy(ex);
         this.currentPosition = ex;
         return true;
     }
 
-    public void absorbsEnergya(Position ex) {
-        this.energy += ex.getEnergia();
+    public void absorbsEnergy(Position ex) {
+        this.energy += ex.getEnergy();
     }
     
     public void deadWithouEnergy () {

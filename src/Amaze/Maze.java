@@ -27,10 +27,10 @@ public class Maze {
     }
 
     private void createObstacles() {
-        int numObstaculos = ((int)(Math.random() * 15)) + 10;
+        int numObstacules = ((int)(Math.random() * 15)) + 10;
         
         int n = 0;
-        while (n < numObstaculos) {
+        while (n < numObstacules) {
             int i = ((int)(Math.random() * 10));
             int j = ((int)(Math.random() * 10));
             if (!(maze[i][j].isObstacle() 
@@ -44,11 +44,11 @@ public class Maze {
     }
 
     private void createEnergies() {
-        int num5Energias = 5;
-        int num10Energias = 3;
+        int num5Energies = 5;
+        int num10Energies = 3;
         
         int n5 = 0;
-        while (n5 < num5Energias) {
+        while (n5 < num5Energies) {
             int i = ((int)(Math.random() * 10));
             int j = ((int)(Math.random() * 10));
             
@@ -63,7 +63,7 @@ public class Maze {
         }
         
         int n10 = 0;
-        while (n10 < num10Energias) {
+        while (n10 < num10Energies) {
             int i = ((int)(Math.random() * 10));
             int j = ((int)(Math.random() * 10));
             
