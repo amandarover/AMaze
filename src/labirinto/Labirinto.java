@@ -93,9 +93,7 @@ public class Labirinto {
         la.add(robo.getPosicaoAtual());
         
         while (!la.isEmpty() && robo.getEnergia() > 0) {
-            Posicao ex = la.get(0);
-            ex = removeAlreadyPassedPosition(ex);
-            goToNextPosition(ex);
+            Posicao ex = goToNextPosition();
             if (robo.anda(ex)) {
                 currentMazeSnapshot(ex);
                 ArrayList<Posicao> posicoesNovas = searchForNewPositionAmplitude(ex);
@@ -114,17 +112,20 @@ public class Labirinto {
         return false;
     }
     
-    private Posicao removeAlreadyPassedPosition (Posicao ex) {
+    private Posicao goToNextPosition () {
+        Posicao ex = removeAlreadyPassedPosition();
+        la.remove(0);
+        lf.add(ex);
+        return ex;
+    }
+    
+    private Posicao removeAlreadyPassedPosition () {
+        Posicao ex = la.get(0);
         while (!la.isEmpty() && lf.contains(ex)) {
             la.remove(0);
             ex = la.get(0);
         }
         return ex;
-    }
-    
-    private void goToNextPosition (Posicao ex) {
-        la.remove(0);
-        lf.add(ex);
     }
     
     private ArrayList <Posicao> searchForNewPositionAmplitude (Posicao ex) {
@@ -155,13 +156,7 @@ public class Labirinto {
         mostraLabirinto();
         
         while (!la.isEmpty() && robo.getEnergia() > 0) {
-            Posicao ex = la.get(0);
-            while (!la.isEmpty() && lf.contains(ex)) {
-                la.remove(0);
-                ex = la.get(0);
-            }
-            la.remove(0);
-            lf.add(ex);
+            Posicao ex = goToNextPosition();
             if (robo.anda(ex)) {
                 currentMazeSnapshot(ex);
                 ArrayList<Posicao> posicoesNovas = searchForNewPositionAStar(ex);
