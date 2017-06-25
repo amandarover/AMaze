@@ -11,9 +11,9 @@ public class main {
                 + "\nDigite 2 : busca em A*");
         
         switch (mode) {
-            case "1": labirinto.buscarPorLargura();
+            case "1": labirinto.amplitudeSearch();
                 break;
-            case "2": labirinto.algoritmoEstrela();
+            case "2": labirinto.pathfinding();
                 break;
         }
     }
