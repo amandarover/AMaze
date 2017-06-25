@@ -1,21 +1,21 @@
-package labirinto;
+package Amaze;
 
-public class Posicao {
+public class Position {
     
-    private boolean obstaculo;
-    private int energia;
+    private boolean obstacle;
+    private int energy;
     private int i;
     private int j;
     private String status;
     private int h;
 
-    public Posicao(boolean obstaculo,int energia, int i, int j) {
-        this.obstaculo = obstaculo;
-        this.energia = energia;
+    public Position(boolean obstacle,int energy, int i, int j) {
+        this.obstacle = obstacle;
+        this.energy = energy;
         this.i = i;
         this.j = j;
-        if (energia>0){
-            this.status = "["+energia+"]";
+        if (energy > 0){
+            this.status = "["+energy+"]";
         } else {
             this.status = "[ ]";
         }
@@ -37,20 +37,20 @@ public class Posicao {
         this.j = j;
     }
 
-    public boolean isObstaculo() {
-        return obstaculo;
+    public boolean isObstacle() {
+        return obstacle;
     }
 
-    public void setObstaculo(boolean obstaculo) {
-        this.obstaculo = obstaculo;
+    public void setObstacle(boolean obstaculo) {
+        this.obstacle = obstaculo;
     }
 
-    public int getEnergia() {
-        return energia;
+    public int getEnergy() {
+        return energy;
     }
 
-    public void setEnergia(int energia) {
-        this.energia = energia;
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
     public String getStatus() {
